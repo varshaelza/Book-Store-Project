@@ -1,7 +1,0 @@
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\bin\Debug\Project2_Switch_Statements.exe.config
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\bin\Debug\Project2_Switch_Statements.exe
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\bin\Debug\Project2_Switch_Statements.pdb
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\obj\Debug\Project2_Switch_Statements.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\obj\Debug\Project2_Switch_Statements.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\obj\Debug\Project2_Switch_Statements.exe
-C:\Users\varsha\source\repos\Training\Day2\Project2_Switch_Statements\Project2_Switch_Statements\obj\Debug\Project2_Switch_Statements.pdb

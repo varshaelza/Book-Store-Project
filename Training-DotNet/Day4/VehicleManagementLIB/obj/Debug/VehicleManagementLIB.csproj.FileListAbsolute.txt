@@ -1,5 +1,0 @@
-C:\Users\varsha\source\repos\Training-DotNet\Day4\VehicleManagementLIB\bin\Debug\VehicleManagementLIB.dll
-C:\Users\varsha\source\repos\Training-DotNet\Day4\VehicleManagementLIB\bin\Debug\VehicleManagementLIB.pdb
-C:\Users\varsha\source\repos\Training-DotNet\Day4\VehicleManagementLIB\obj\Debug\VehicleManagementLIB.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day4\VehicleManagementLIB\obj\Debug\VehicleManagementLIB.dll
-C:\Users\varsha\source\repos\Training-DotNet\Day4\VehicleManagementLIB\obj\Debug\VehicleManagementLIB.pdb

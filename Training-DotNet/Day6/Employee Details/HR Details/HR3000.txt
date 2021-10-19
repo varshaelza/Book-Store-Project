@@ -1,4 +1,0 @@
-Employee no : HR3000
-Employee name : Ayona S
-Employee designation : Client.HR
-Employee salary : 46000

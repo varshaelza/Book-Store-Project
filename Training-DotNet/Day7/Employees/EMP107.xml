@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<Employee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <EmpNo>EMP107</EmpNo>
-  <EmpName>Ajay Paul</EmpName>
-  <EmpSalary>45000</EmpSalary>
-  <EmpDesignation>Jr.Manager</EmpDesignation>
-  <EmpLeaves>15</EmpLeaves>
-</Employee>

@@ -1,7 +1,0 @@
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\bin\Debug\Exception-Demo.exe.config
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\bin\Debug\Exception-Demo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\bin\Debug\Exception-Demo.pdb
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\obj\Debug\Exception-Demo.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\obj\Debug\Exception-Demo.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\obj\Debug\Exception-Demo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day7\Exception-Demo\obj\Debug\Exception-Demo.pdb

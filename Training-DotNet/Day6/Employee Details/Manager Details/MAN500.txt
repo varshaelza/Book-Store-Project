@@ -1,4 +1,0 @@
-Employee no : MAN500
-Employee name : Varsha Elza
-Employee designation : Jr.Manager
-Employee salary : 52000

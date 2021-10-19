@@ -1,4 +1,0 @@
-Employee no : DEV2000
-Employee name : Sreelakshmi K H
-Employee designation : Jr.Developer
-Employee salary : 35000

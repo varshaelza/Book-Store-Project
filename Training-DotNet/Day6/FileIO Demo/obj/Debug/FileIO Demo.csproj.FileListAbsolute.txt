@@ -1,7 +1,0 @@
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\bin\Debug\FileIO Demo.exe.config
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\bin\Debug\FileIO Demo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\bin\Debug\FileIO Demo.pdb
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\obj\Debug\FileIO Demo.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\obj\Debug\FileIO Demo.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\obj\Debug\FileIO Demo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day6\FileIO Demo\obj\Debug\FileIO Demo.pdb

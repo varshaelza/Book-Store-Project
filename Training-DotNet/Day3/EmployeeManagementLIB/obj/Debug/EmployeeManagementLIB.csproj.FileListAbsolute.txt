@@ -1,6 +1,0 @@
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\bin\Debug\EmployeeManagementLIB.dll
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\bin\Debug\EmployeeManagementLIB.pdb
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\obj\Debug\EmployeeManagementLIB.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\obj\Debug\EmployeeManagementLIB.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\obj\Debug\EmployeeManagementLIB.dll
-C:\Users\varsha\source\repos\Training\Day3\EmployeeManagementLIB\obj\Debug\EmployeeManagementLIB.pdb

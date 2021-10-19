@@ -1,6 +1,0 @@
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\bin\Debug\BankingApplicationLIB.dll
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\bin\Debug\BankingApplicationLIB.pdb
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\obj\Debug\BankingApplicationLIB.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\obj\Debug\BankingApplicationLIB.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\obj\Debug\BankingApplicationLIB.dll
-C:\Users\varsha\source\repos\Training\Day4\BankingApplicationLIB\obj\Debug\BankingApplicationLIB.pdb

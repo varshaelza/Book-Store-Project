@@ -1,4 +1,0 @@
-Employee no : MAN501
-Employee name : Malavika Manoj
-Employee designation : Sr.Manager
-Employee salary : 54000

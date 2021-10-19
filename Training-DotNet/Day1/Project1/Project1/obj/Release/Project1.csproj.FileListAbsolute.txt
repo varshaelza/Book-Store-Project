@@ -1,7 +1,0 @@
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\bin\Release\Project1.exe.config
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\bin\Release\Project1.exe
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\bin\Release\Project1.pdb
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\obj\Release\Project1.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\obj\Release\Project1.exe
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\obj\Release\Project1.pdb
-C:\Users\varsha\source\repos\Training\Day1\Project1\Project1\obj\Release\Project1.csproj.AssemblyReference.cache

@@ -1,7 +1,0 @@
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\obj\Debug\EnhancementsDemo.csproj.AssemblyReference.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\obj\Debug\EnhancementsDemo.csproj.CoreCompileInputs.cache
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\bin\Debug\EnhancementsDemo.exe.config
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\bin\Debug\EnhancementsDemo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\bin\Debug\EnhancementsDemo.pdb
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\obj\Debug\EnhancementsDemo.exe
-C:\Users\varsha\source\repos\Training-DotNet\Day5\EnhancementsDemo\obj\Debug\EnhancementsDemo.pdb

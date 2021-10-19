@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<Savings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AccNo>SAV5005</AccNo>
-  <AccName>Aakash Ninan</AccName>
-  <AccBalance>53000</AccBalance>
-  <AccIsactive>true</AccIsactive>
-</Savings>
