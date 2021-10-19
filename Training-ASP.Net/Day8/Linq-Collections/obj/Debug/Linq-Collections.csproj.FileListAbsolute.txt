@@ -1,7 +1,0 @@
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\bin\Debug\Linq-Collections.exe.config
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\bin\Debug\Linq-Collections.exe
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\bin\Debug\Linq-Collections.pdb
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\obj\Debug\Linq-Collections.csprojAssemblyReference.cache
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\obj\Debug\Linq-Collections.csproj.CoreCompileInputs.cache
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\obj\Debug\Linq-Collections.exe
-C:\Users\vgikku\source\repos\Linq-Collections\Linq-Collections\obj\Debug\Linq-Collections.pdb
