@@ -191,6 +191,8 @@
 --insert into Orders values(1,1,0,getdate());
 --insert into Orders values(2,2,0,getdate());
 --insert into Orders values(4,1,0,getdate());
+--insert into Orders values(5,2,0,getdate());
+--insert into Orders values(6,1,0,getdate());
 
 --insert into Purchases values(1,2,1)
 --insert into Purchases values(2,1,1)
@@ -198,6 +200,10 @@
 --insert into Purchases values(4,2,2);
 --insert into Purchases values(5,2,2);
 --insert into Purchases values(6,4,3);
+--insert into Purchases values(9,1,4);
+--insert into Purchases values(10,1,4);
+--insert into Purchases values(6,2,5);
+--insert into Purchases values(13,1,5);
 
 
 
