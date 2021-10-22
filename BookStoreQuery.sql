@@ -150,6 +150,30 @@
 
 --alter table books add constraint checkavailability check(availableQty>=0)
 
+--alter table Category alter column categoryImg varchar(500) 
+--alter table Books alter column bookImage varchar(1000)
+
+--update Category set categoryImg='https://st4.depositphotos.com/1005233/37899/i/600/depositphotos_378996858-stock-photo-view-blank-cover-book-isolated.jpg';
+--update Category set categoryImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgbJRJ4Yde2OOi9ZwgeEmlTjWMd7sGhY90Jw&usqp=CAU' where categoryId = 1
+--update Category set categoryImg = 'https://www.sun-sentinel.com/resizer/9xhhgqjtXA8DSl1-0rVL7vJn48o=/415x311/top/cloudfront-us-east-1.images.arcpublishing.com/tronc/P5XYR5PERJG47AAD3SYKTDVXDY.jpg' where categoryId=2;
+
+--update Category set categoryImg = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-thriller-index-1593712464.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*' where categoryId=3;
+
+--update Category set categoryImg = 'https://n3.sdlcdn.com/imgs/j/s/x/Short-Story-books-with-exercises-SDL856131003-1-e6632.jpg' where categoryId=4;
+
+--update Category set categoryImg = 'https://static01.nyt.com/images/2021/09/15/books/00FALL-PREVIEW-MEMOIR/00FALL-PREVIEW-MEMOIR-articleLarge.jpg?quality=75&auto=webp&disable=upscale' where categoryId=5;
+
+--update Category set categoryImg = 'https://www.denofgeek.com/wp-content/uploads/2021/06/Books-Banner-8.png?fit=1240%2C698' where categoryId=6;
+
+--update Category set categoryImg = 'https://orion-uploads.openroadmedia.com/sm_254bdff4b0c6-md_2d7c5acacd29-literary-fiction.jpg' where categoryId=7;
+--update Category set categoryImg = 'https://cdn.shopify.com/s/files/1/0285/2821/4050/articles/113_1110x.jpg?v=1592918177' where categoryId=8;
+--update Category set categoryImg ='https://static.independent.co.uk/2021/02/23/17/poetry-books-world-poetry-day-indybest.jpg?width=982&height=726&auto=webp&quality=75' where categoryId=9;
+--update Category set categoryImg = 'https://s26162.pcdn.co/wp-content/uploads/sites/2/2018/12/Memoir-Biography.png' where categoryId=10;
+--update books set bookImage = 'https://s26162.pcdn.co/wp-content/uploads/sites/2/2018/12/Memoir-Biography.png';
+
+
+
+
 --alter table Cart add constraint UK_bookUser UNIQUE(bookId,userId)
 
 ------------------------------------------------INSERT INTO TABLES--------------------------------------------------------
@@ -283,3 +307,18 @@
 	
 --	update Orders set totalAmt=(select dbo.func_calctotal(@orderId,@discount)) where orderId=@orderId
 --end
+
+--alter trigger purchase_Add
+--on
+--Orders
+--after insert
+--as begin
+--	declare @orderId int=(select orderId from inserted);
+--	declare @userId int = (select userId from Orders where orderId=@orderId);
+--	insert into Purchases values((select bookId from Cart where userId = @userId),(select bookQty from Cart where userId = @userId),@orderId);
+--end
+
+
+--------------------------------------------------TESTING-------------------------------------------------------
+--insert into Cart values(4,9,1)
+--insert into Orders values(4,1,0,getdate());
