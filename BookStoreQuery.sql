@@ -27,6 +27,8 @@
 --constraint PK_Category primary key(categoryId)
 --);
 
+
+
 --create table Books(
 --   bookId int identity,
 --   categoryId int,
@@ -110,19 +112,45 @@
 --(
 --cartId int identity,
 --userId int,
---bookId int
+--bookId int,
+--bookQty int
 
 --constraint PK_Cart primary key(cartId),
 --constraint FK_CartBookID foreign key(bookId) references Books(bookId),
 --constraint FK_CartUserID foreign key(userId) references Users(userId)
 --);
 
+
 ------------------------------------------------ALTER TABLES--------------------------------------------------------
 
 --alter table Users add constraint UK_username unique(userName)
 --alter table Books alter column bookDescription varchar(500)
 --alter table Category alter column categoryDesc varchar(500)
---alter table Users add isLoggedIn bit default 0;
+--alter table Users add  isActive bit default 1;
+--update Users set isActive=1;
+
+--alter table books add Author varchar(50);
+--alter table books add availableQty int;
+
+--update books set availableQty=14, author='Charlotte Bronte' where bookId=1;
+--update books set availableQty=9, author='Robert Traver' where bookId=2;
+--update books set availableQty=0, author='Jane Austin' where bookId=3;
+--update books set availableQty=10, author='Dr. A P J Abdul Kalam' where bookId=4;
+--update books set availableQty=0, author='Greer Hendricks, Sarah Pekkanen' where bookId=5;
+--update books set availableQty=20, author='Michelle Obama' where bookId=6;
+--update books set availableQty=5, author='Ken Follet' where bookId=7;
+--update books set availableQty=19, author='Lucy Foley' where bookId=8;
+--update books set availableQty=3, author='Toni Morrison' where bookId=9;
+--update books set availableQty=0, author='Shirley Jackson' where bookId=10;
+--update books set availableQty=18, author='Dan Brown' where bookId=11;
+--update books set availableQty=14, author='Andy Weir' where bookId=12;
+--update books set availableQty=5, author='Walt Whitman' where bookId=13;
+--update books set availableQty=0, author='Ted Chiang' where bookId=14;
+--update books set availableQty=14, author='Elie Wisel' where bookId=16;
+
+--alter table books add constraint checkavailability check(availableQty>=0)
+
+--alter table Cart add constraint UK_bookUser UNIQUE(bookId,userId)
 
 ------------------------------------------------INSERT INTO TABLES--------------------------------------------------------
 
@@ -177,16 +205,17 @@
 --insert into WishList values(2,4);
 --insert into WishList values(8,4);
 
---insert into Cart values(2,5);
---insert into Cart values(2,6);
---insert into Cart values(1,1);
---insert into Cart values(3,13);
---insert into Cart values(3,8);
---insert into Cart values(9,11);
---insert into Cart values(10,1);
---insert into Cart values(8,4);
---insert into Cart values(8,12);
---insert into Cart values(7,3);
+--insert into Cart values(2,5,2);
+--insert into Cart values(2,6,1);
+--insert into Cart values(1,1,1);
+--insert into Cart values(3,13,2);
+--insert into Cart values(3,8,3);
+--insert into Cart values(9,11,5);
+--insert into Cart values(10,1,5);
+--insert into Cart values(8,4,1);
+--insert into Cart values(8,12,1);
+--insert into Cart values(7,3,1);
+
 
 --insert into Orders values(1,1,0,getdate());
 --insert into Orders values(2,2,0,getdate());
@@ -217,16 +246,40 @@
 --end
 
 
-
---create trigger trg_orderplaced
+--alter trigger trg_orderplaced
 --on
 --Purchases
 --after
---insert
+--insert,update,delete
 --as
 --begin
---	declare @orderId int=(select orderId from inserted);
---	declare @discount int=(select Discount.disPercent from Orders join Discount on Orders.couponId=Discount.couponId where Orders.orderId=@orderId);
+--	declare @orderId int;
+--	declare @discount float;
+--	declare @bookId int;
+--	declare @userId int;
+--	declare @qty int;
+	
+--	if(exists (select * from deleted))
+--	begin
+--	set @orderId =(select orderId from deleted);
+--	set @discount =(select Discount.disPercent from Orders join Discount on Orders.couponId=Discount.couponId where Orders.orderId=@orderId);
+--	set @qty=(select qty from inserted);
+--	set @bookId=(select bookId from inserted);
+--	update books set availableQty=(availableQty+@qty) where bookId=@bookId;
+--	end
 
+--	if(exists (select * from inserted))
+--	begin
+
+--	set @orderId=(select orderId from inserted);
+--	set @bookId=(select bookId from inserted);
+--	set @qty=(select qty from inserted);
+--	set @userId=(select Orders.userId from Purchases join Orders on Purchases.orderId=Orders.orderId where Orders.orderId=@orderId);
+--	set @discount =(select Discount.disPercent from Orders join Discount on Orders.couponId=Discount.couponId where Orders.orderId=@orderId);
+--	update books set availableQty=(availableQty-@qty) where bookId=@bookId;
+--	delete from Cart where bookId=@bookId and userId=@userId
+--	end
+
+	
 --	update Orders set totalAmt=(select dbo.func_calctotal(@orderId,@discount)) where orderId=@orderId
 --end
