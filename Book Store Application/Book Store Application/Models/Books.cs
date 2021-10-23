@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,16 +27,14 @@ namespace Book_Store_Application.Models
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
         SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books");
         SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid");
-        SqlCommand cmd_getBookByTitle = new SqlCommand("select * from Books where title = @p_title");
-        SqlCommand cmd_getBookByAuthor = new SqlCommand("select * from Books where author =@p_author");
+        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title = @p_value or author=@p_value");
         SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)"); 
         SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
         SqlCommand cmd_deleteBook = new SqlCommand("delete from Books where bookId=@bookid");
 
         List<Books> bookList = new List<Books>();
         List<Books> bookcatlist = new List<Books>();
-        List<Books> booktitlelist = new List<Books>();
-        List<Books> bookauthorlist = new List<Books>();
+        List<Books> booktitleauthorlist = new List<Books>();
 
         public List<Books> GetAllBooks()
         {
@@ -101,17 +99,17 @@ namespace Book_Store_Application.Models
             return bookcatlist;
         }
 
-        public List<Books> GetBookByTitle(string p_title)
+        public List<Books> GetBookByTitleAuthor(string p_value)
         {
-            cmd_getBookByTitle.Connection = con;
-            cmd_getBookByTitle.Parameters.AddWithValue("@p_title", p_title);
+            cmd_getBookByTitleAuthor.Connection = con;
+            cmd_getBookByTitleAuthor.Parameters.AddWithValue("@p_value", p_value);
             SqlDataReader _readBook;
             con.Open();
-            _readBook = cmd_getBookByTitle.ExecuteReader();
+            _readBook = cmd_getBookByTitleAuthor.ExecuteReader();
             while (_readBook.Read())
             {
 
-                booktitlelist.Add(new Books()
+                booktitleauthorlist.Add(new Books()
                 {
                     bookId = Convert.ToInt32(_readBook[0]),
                     categoryId = Convert.ToInt32(_readBook[1]),
@@ -130,40 +128,7 @@ namespace Book_Store_Application.Models
             }
             _readBook.Close();
             con.Close();
-            return booktitlelist;
-        }
-
-
-        public List<Books> GetBookByAuthor(string p_author)
-        {
-            cmd_getBookByAuthor.Connection = con;
-            cmd_getBookByAuthor.Parameters.AddWithValue("@p_author", p_author);
-            SqlDataReader _readBook;
-            con.Open();
-            _readBook = cmd_getBookByAuthor.ExecuteReader();
-            while (_readBook.Read())
-            {
-
-                bookauthorlist.Add(new Books()
-                {
-                    bookId = Convert.ToInt32(_readBook[0]),
-                    categoryId = Convert.ToInt32(_readBook[1]),
-                    title = _readBook[2].ToString(),
-                    ISBN = Convert.ToInt32(_readBook[3]),
-                    year = Convert.ToInt32(_readBook[4]),
-                    bookPrice = Convert.ToDouble(_readBook[5]),
-                    bookDescription = _readBook[6].ToString(),
-                    bookPosition = Convert.ToInt32(_readBook[7]),
-                    bookStatus = Convert.ToBoolean(_readBook[8]),
-                    bookImage = _readBook[9].ToString(),
-                    author = _readBook[10].ToString(),
-                    availableQty = Convert.ToInt32(_readBook[11])
-                    
-                });
-            }
-            _readBook.Close();
-            con.Close();
-            return bookauthorlist;
+            return booktitleauthorlist;
         }
 
         public int addBook(Books newbook)
