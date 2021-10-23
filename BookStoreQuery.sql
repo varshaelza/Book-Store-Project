@@ -308,14 +308,27 @@
 --	update Orders set totalAmt=(select dbo.func_calctotal(@orderId,@discount)) where orderId=@orderId
 --end
 
---alter trigger purchase_Add
+--create trigger purchaseAdd
 --on
 --Orders
---after insert
+--after 
+--insert
 --as begin
---	declare @orderId int=(select orderId from inserted);
---	declare @userId int = (select userId from Orders where orderId=@orderId);
---	insert into Purchases values((select bookId from Cart where userId = @userId),(select bookQty from Cart where userId = @userId),@orderId);
+--	declare @bookId int
+--	declare @bookQty int 
+--	declare @orderId int = (select orderId from inserted)
+--	declare @userId int = (select userId from Orders where orderId = @orderId)
+--	declare c1 cursor scroll for select bookId, bookQty from Cart where userId=@userId
+--	open c1
+--	fetch next from c1 into @bookId, @bookQty
+	
+--	while @@FETCH_STATUS = 0
+--		begin
+--			insert into Purchases values(@bookId, @bookQty, @orderId)
+--			fetch next from c1 into @bookId, @bookQty
+--		end
+--	close c1
+--	deallocate c1
 --end
 
 
