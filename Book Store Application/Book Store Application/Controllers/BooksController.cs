@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -21,13 +21,9 @@ namespace Book_Store_Application.Controllers
             return bookObj.GetBookByCategory(p_catID);
         }
 
-        public List<Books> GetBookByTitle(string p_title)
+        public List<Books> GetBookByTitleAuthor(string p_value)
         {
-            return bookObj.GetBookByTitle(p_title);
-        }
-        public List<Books> GetBookByAuthor(string p_author)
-        {
-            return bookObj.GetBookByAuthor(p_author);
+            return bookObj.GetBookByTitleAuthor(p_value);
         }
         [HttpPost]
         public List<Books> Post(Books newobj)
