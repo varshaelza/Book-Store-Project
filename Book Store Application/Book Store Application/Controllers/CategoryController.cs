@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.IO;
 using Book_Store_Project.Models;
 namespace Book_Store_Project.Controllers
 {
@@ -14,27 +15,82 @@ namespace Book_Store_Project.Controllers
         [HttpGet]
         public List<Category> GetCategory()
         {
-            return cat.GetAllCategory();
+            
+            List<Category> catList = new List<Category>();
+            try
+            {
+                Category cat = new Category();
+                catList = cat.GetAllCategory();
+            }
+            catch (Exception ex)
+            {
+                FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(ex.Message);
+                sw.Close();
+                fs.Close();
+            }
+           
+            return catList;
         }
 
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public List<Category> PostCategory(Category newObj)
         {
-            cat.AddCategory(newObj);
+            Category cat = new Category();
+            try
+            {
+                cat.AddCategory(newObj);
+            }
+            catch (Exception ex)
+            {
+                FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(ex.Message);
+                sw.Close();
+                fs.Close();
+            }
+
             return cat.GetAllCategory();
-            //return 1;
         }
+
         [HttpPut]
         public List<Category> PutCategory(int id, Category updObj)
         {
-            cat.UpdateCategory(id, updObj);
+            Category cat = new Category();
+            try
+            {
+                cat.UpdateCategory(id, updObj);
+            }
+            catch(Exception ex)
+            {
+                FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(ex.Message);
+                sw.Close();
+                fs.Close();
+            }            
             return cat.GetAllCategory();
         }
+
         [HttpDelete]
         public List<Category> DeleteCategory(int id)
         {
-            cat.DeleteCategory(id);
+            Category cat = new Category();
+            try
+            {
+                cat.DeleteCategory(id);
+            }
+            catch(Exception ex)
+            {
+                FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(ex.Message);
+                sw.Close();
+                fs.Close();
+            }
+                        
             return cat.GetAllCategory();
         }
     }
