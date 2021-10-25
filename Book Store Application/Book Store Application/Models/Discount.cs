@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -43,7 +43,11 @@ namespace Book_Store_Application.Models
                 DisList.Add(new Discount() { couponId = Convert.ToInt32(_read[0]), couponCode = Convert.ToString(_read[1]), minPurchase = Convert.ToDouble(_read[2]), disPercent = Convert.ToDouble(_read[3]) });
             }
             _read.Close();
-            con.Close();
+            con.Close(); 
+            if(DisList.Count==0)
+            {
+                throw new Exception("Discount table does not contain any entries");
+            }
             return DisList;
         }
 
@@ -61,6 +65,10 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if (DisList.Count == 0)
+            {
+                throw new Exception("Record minPurchase<"+p_totPurchase+" not found in Discount table");
+            }
             return DisList;
         }
 
@@ -79,6 +87,10 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if (DisList.Count == 0)
+            {
+                throw new Exception("Record couponCode="+p_couponCode+" not found in Discount table");
+            }
             return DisList;
         }
 
@@ -89,7 +101,20 @@ namespace Book_Store_Application.Models
             cmd_insertdata.Parameters.AddWithValue("@p_minPurchase", disObj.minPurchase);
             cmd_insertdata.Parameters.AddWithValue("@p_disPercent",disObj.disPercent);
             con.Open();
-            int result = cmd_insertdata.ExecuteNonQuery();//returns number of lines affected
+            int result = 0;
+            try
+            {
+                result = cmd_insertdata.ExecuteNonQuery();
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Discount table");
+            }
+            if(result==0)
+            {
+                throw new Exception("Could not add entry into Discount table" );
+            }
             con.Close();
             return result;
         }
@@ -104,6 +129,10 @@ namespace Book_Store_Application.Models
             con.Open();
             int result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update record couponId="+disObj.couponId+" in Discount table");
+            }
             return result;
 
 
@@ -115,6 +144,10 @@ namespace Book_Store_Application.Models
             con.Open();
             int result = cmd_deletedata.ExecuteNonQuery();//returns number of lines affected
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not delete record couponId=" +p_couponId + " in Discount table");
+            }
             return result;
         }
 
