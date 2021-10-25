@@ -16,7 +16,6 @@ namespace Book_Store_Project.Models
         public int bookQty { get; set; }
         #endregion
 
-        List<Cart> cartList = new List<Cart>();
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
@@ -29,10 +28,11 @@ namespace Book_Store_Project.Models
         #region Methods
         public List<Cart> GetAllItems()
         {
+            List<Cart> cartList = new List<Cart>();
             cmd_getAllItems.Connection = con; //my command is going to use connection
             SqlDataReader _read;
             con.Open();
-            _read = cmd_getAllItems.ExecuteReader(); //start reading
+            _read = cmd_getAllItems.ExecuteReader(); 
             while (_read.Read())
             {
                 cartList.Add(new Cart()
@@ -46,12 +46,16 @@ namespace Book_Store_Project.Models
             _read.Close();
             con.Close();
 
+            if (cartList.Count == 0)
+            {
+                throw new Exception("Cart table does not contain any entries");
+            }
             return cartList;
         }
 
         public List<Cart> GetbyUserId(int p_userId)
         {
-
+            List<Cart> cartList = new List<Cart>();
             cmd_getItemByUserId.Parameters.AddWithValue("@userId", p_userId);
             cmd_getItemByUserId.Connection = con;
             SqlDataReader _read;
@@ -69,6 +73,11 @@ namespace Book_Store_Project.Models
             }
             _read.Close();
             con.Close();
+
+            if (cartList.Count == 0)
+            {
+                throw new Exception("Record userId = " + p_userId + " not found in Cart table");
+            }
             return cartList;
         }
 
@@ -80,10 +89,13 @@ namespace Book_Store_Project.Models
             cmd_addItem.Parameters.AddWithValue("@bookQty", cartObj.bookQty);
 
 
-
             con.Open();
             int result = cmd_addItem.ExecuteNonQuery();
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not add entry into Cart table");
+            }
             return result;
 
         }
@@ -92,11 +104,15 @@ namespace Book_Store_Project.Models
         {
             cmd_updateItem.Connection = con;
             cmd_updateItem.Parameters.AddWithValue("@bookQty", cartObj.bookQty);
-
             cmd_updateItem.Parameters.AddWithValue("@cartId", id);
             con.Open();
             int result = cmd_updateItem.ExecuteNonQuery();
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update record cartId = " + id + " in Cart table");
+            }
+
             return result;
         }
 
@@ -110,6 +126,11 @@ namespace Book_Store_Project.Models
             con.Open();
             int result = cmd_deleteItem.ExecuteNonQuery();
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not delete record cartId = " + cartId + " in Cart table");
+            }
+
             return result;
         }
         #endregion
