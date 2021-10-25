@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,6 +42,10 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if(WishesList.Count==0)
+            {
+                throw new Exception("WishList table does not contain any entries");
+            }
             return WishesList;
         }
 
@@ -59,6 +63,10 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if (WishesList.Count == 0)
+            {
+                throw new Exception("Record userId=" + p_userId + " not found in WishList table");
+            }
             return WishesList;
         }
         public int AddWishList(WishList wishObj)
@@ -67,7 +75,21 @@ namespace Book_Store_Application.Models
             cmd_insertdata.Parameters.AddWithValue("@p_bookId", wishObj.bookId);
             cmd_insertdata.Parameters.AddWithValue("@p_userId", wishObj.userId);
             con.Open();
-            int result = cmd_insertdata.ExecuteNonQuery();//returns number of lines affected
+            int result = 0;
+
+            try
+            {
+                result = cmd_insertdata.ExecuteNonQuery();
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not add entry into WishList table");
+            }
+            if (result == 0)
+            {
+                throw new Exception("Could not add entry into WishList table");
+            }
             con.Close();
             return result;
         }
@@ -81,6 +103,10 @@ namespace Book_Store_Application.Models
             con.Open();
             int result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update record wishIdId=" + wishObj.wishId + " in WishList table");
+            }
             return result;
 
 
@@ -92,6 +118,10 @@ namespace Book_Store_Application.Models
             con.Open();
             int result = cmd_deletedata.ExecuteNonQuery();//returns number of lines affected
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not delete record wishId=" + p_wishId + " in WishList table");
+            }
             return result;
         }
 
