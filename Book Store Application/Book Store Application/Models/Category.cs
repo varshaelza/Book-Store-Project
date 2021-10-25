@@ -9,6 +9,7 @@ namespace Book_Store_Project.Models
 {
     public class Category
     {
+        #region Properties
         public int categoryId { get; set; }
         public string categoryName { get; set; }
         public string categoryDesc { get; set; }
@@ -16,11 +17,7 @@ namespace Book_Store_Project.Models
         public bool categoryStatus { get; set; }
         public int categoryPosition { get; set; }
         public DateTime categoryCreatedAt { get; set; }
-
-
-
-        List<Category> catList = new List<Category>();
-
+        #endregion
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
@@ -28,14 +25,15 @@ namespace Book_Store_Project.Models
         SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,@categoryCreatedAt)");
         SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition, categoryCreatedAt=@categoryCreatedAt where categoryId = @categoryId");
         SqlCommand cmd_deleteCategory = new SqlCommand("delete from Category where categoryId = @categoryId");
-        
 
+        #region Methods
         public List<Category> GetAllCategory()
         {
+            List<Category> catList = new List<Category>();
             cmd_getAllData.Connection = con; //my command is going to use connection
             SqlDataReader _read;
             con.Open();
-            _read = cmd_getAllData.ExecuteReader(); //start reading
+            _read = cmd_getAllData.ExecuteReader(); 
             while (_read.Read())
             {
                 catList.Add(new Category()
@@ -52,6 +50,10 @@ namespace Book_Store_Project.Models
             _read.Close();
             con.Close();
 
+            if (catList.Count == 0)
+            {
+                throw new Exception("Category table does not contain any entries");
+            }
             return catList;
         }
 
@@ -69,6 +71,11 @@ namespace Book_Store_Project.Models
             con.Open();
             int result = cmd_addCategory.ExecuteNonQuery();
             con.Close();
+
+            if (result == 0)
+            {
+                throw new Exception("Could not add entry into Category table");
+            }
             return result;
 
         }
@@ -83,9 +90,15 @@ namespace Book_Store_Project.Models
             cmd_updateCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
             cmd_updateCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
             cmd_updateCategory.Parameters.AddWithValue("@categoryId", id);
+
             con.Open();
             int result = cmd_updateCategory.ExecuteNonQuery();
             con.Close();
+
+            if (result == 0)
+            {
+                throw new Exception("Could not update record categoryId = " + id + " in Category table");
+            }
             return result;
         }
 
@@ -96,8 +109,13 @@ namespace Book_Store_Project.Models
             con.Open();
             int result = cmd_deleteCategory.ExecuteNonQuery();
             con.Close();
+
+            if (result == 0)
+            {
+                throw new Exception("Could not delete record categoryId = " + id + " in Category table");
+            }
             return result;
         }
-
+        #endregion
     }
 }
