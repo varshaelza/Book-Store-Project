@@ -121,16 +121,24 @@ namespace Book_Store_Project.Models
             cmd_addOrder.Parameters.AddWithValue("@couponId", orderObj.couponId);
             cmd_addOrder.Parameters.AddWithValue("@totalAmt", orderObj.totalAmt);
             cmd_addOrder.Parameters.AddWithValue("@dateTimeOrder", orderObj.dateTimeOrder);
-
-
+            int result = 0;
             con.Open();
-            int result = cmd_addOrder.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                result = cmd_addOrder.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Orders table");
+            }
+            
 
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Orders table");
             }
+            con.Close();
             return result;
 
         }
