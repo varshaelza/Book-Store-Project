@@ -66,16 +66,25 @@ namespace Book_Store_Project.Models
             cmd_addCategory.Parameters.AddWithValue("@categoryStatus", catObj.categoryStatus);
             cmd_addCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
             cmd_addCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
-
+            int result = 0;
 
             con.Open();
-            int result = cmd_addCategory.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                result = cmd_addCategory.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Category table");
+            }
+            
 
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Category table");
             }
+            con.Close();
             return result;
 
         }
@@ -90,15 +99,25 @@ namespace Book_Store_Project.Models
             cmd_updateCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
             cmd_updateCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
             cmd_updateCategory.Parameters.AddWithValue("@categoryId", id);
-
+            int result = 0;
             con.Open();
-            int result = cmd_updateCategory.ExecuteNonQuery();
-            con.Close();
+
+            try
+            {
+                result = cmd_updateCategory.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update record categoryId = " + id + " in Category table");
+            }
+            
 
             if (result == 0)
             {
                 throw new Exception("Could not update record categoryId = " + id + " in Category table");
             }
+            con.Close();
             return result;
         }
 
