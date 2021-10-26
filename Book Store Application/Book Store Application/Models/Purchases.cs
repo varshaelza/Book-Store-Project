@@ -88,11 +88,12 @@ namespace Book_Store_Application.Models
                 con.Close();
                 throw new Exception("Could not add entry into Purchases table");
             }
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Purchases table");
             }
-            con.Close();
+            
             return result;
         }
 
