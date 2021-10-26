@@ -32,6 +32,8 @@ namespace Book_Store_Application.Models
 
 
         List<Users> userlist = new List<Users>();
+        List<Users> userlistbyid = new List<Users>();
+        List<Users> userlistbyname = new List<Users>();
        
 
         public List<Users> GetAllUsers()
@@ -46,7 +48,7 @@ namespace Book_Store_Application.Models
                 {
                     userID = Convert.ToInt32(_read[0]),
                     userName = _read[1].ToString(),
-                    //userPassword = _read[2].ToString(),
+                    userPassword = _read[2].ToString(),
                     firstName = _read[3].ToString(),
                     lastName = _read[4].ToString(),
                     userEmail =_read[5].ToString(),
@@ -54,7 +56,7 @@ namespace Book_Store_Application.Models
                     isAdmin = Convert.ToBoolean(_read[7]),
                     userAddress = _read[8].ToString(),
                     isactive = Convert.ToBoolean(_read[9])
-                    //image 
+                    
 
                 });
             }
@@ -68,20 +70,21 @@ namespace Book_Store_Application.Models
             return userlist;
         }
 
-        public Users GetUserById(int p_userId)
+        public List<Users> GetUserById(int p_userId)
         {
             cmd_getUserbyId.Connection = con;
             cmd_getUserbyId.Parameters.AddWithValue("@userId", p_userId);
             SqlDataReader _readUser;
             con.Open();
             _readUser = cmd_getUserbyId.ExecuteReader();
-            _readUser.Read();
-
-                Users user=new Users()
+            
+            while (_readUser.Read())
+            {
+                userlistbyid.Add(new Users()
                 {
                     userID = Convert.ToInt32(_readUser[0]),
                     userName = _readUser[1].ToString(),
-                    //userPassword = _readUser[2].ToString(),
+                    userPassword = _readUser[2].ToString(),
                     firstName = _readUser[3].ToString(),
                     lastName = _readUser[4].ToString(),
                     userEmail = _readUser[5].ToString(),
@@ -89,50 +92,57 @@ namespace Book_Store_Application.Models
                     userAddress = _readUser[8].ToString(),
                     isactive = Convert.ToBoolean(_readUser[9])
 
-                    
-                };
+                });                
+
+            }
             
             _readUser.Close();
             con.Close();
-            if (user == null)
+            if (userlistbyid.Count == 0)
             {
-                throw new Exception("Books table does not contain any entries with this user ID");
+                throw new Exception("Record userId = " + p_userId + " not found in Users table");
 
             }
-            return user;
+
+            return userlistbyid;
         }
 
-        public Users GetUserByName(string p_userName)
+        public List<Users> GetUserByName(string p_userName)
         {
             cmd_getUserbyName.Connection = con;
             cmd_getUserbyName.Parameters.AddWithValue("@userName", p_userName);
             SqlDataReader _readUser;
             con.Open();
             _readUser = cmd_getUserbyName.ExecuteReader();
-            _readUser.Read();
-
-            Users user = new Users()
+            
+            while (_readUser.Read())
             {
-                userID = Convert.ToInt32(_readUser[0]),
-                userName = _readUser[1].ToString(),
-                //userPassword = _readUser[2].ToString(),
-                firstName = _readUser[3].ToString(),
-                lastName = _readUser[4].ToString(),
-                userEmail = _readUser[5].ToString(),
-                userMobile = Convert.ToDouble(_readUser[6]),
-                userAddress = _readUser[8].ToString(),
-                isactive = Convert.ToBoolean(_readUser[9])
+                userlistbyname.Add(new Users()
+                {
+                    userID = Convert.ToInt32(_readUser[0]),
+                    userName = _readUser[1].ToString(),
+                    userPassword = _readUser[2].ToString(),
+                    firstName = _readUser[3].ToString(),
+                    lastName = _readUser[4].ToString(),
+                    userEmail = _readUser[5].ToString(),
+                    userMobile = Convert.ToDouble(_readUser[6]),
+                    userAddress = _readUser[8].ToString(),
+                    isactive = Convert.ToBoolean(_readUser[9])
 
 
-            };
+                });
+
+
+            }
+
 
             _readUser.Close();
             con.Close();
-            if (user == null)
+            if (userlistbyname.Count==0)
             {
-                throw new Exception("Books table does not contain any entries with this username");
+                throw new Exception("Record username = " + p_userName + " not found in Users table");
             }
-            return user;
+            return userlistbyname;
         }
 
         public int addUser(Users newuser)
@@ -191,12 +201,12 @@ namespace Book_Store_Application.Models
             catch (Exception ex)
             {
                 con.Close();
-                throw new Exception("Could not update entry in Users table");
+                throw new Exception("Could not update record userId = " + newusr.userID + " in Users table");
             }
             con.Close();
             if (result == 0)
             {
-                throw new Exception("Could not update entry in Users table");
+                throw new Exception("Could not update record userId = " + newusr.userID + " in Users table");
             }
             return result;
         }
@@ -216,12 +226,12 @@ namespace Book_Store_Application.Models
             catch (Exception ex)
             {
                 con.Close();
-                throw new Exception("Could not delete entry from Users table");
+                throw new Exception("Could not delete record userId = " + p_userId + " in Users table");
             }
             con.Close();
             if (result == 0)
             {
-                throw new Exception("Could not delete entry from Users table");
+                throw new Exception("Could not delete record userId = " + p_userId + " in Users table");
             }
             return result;
 
