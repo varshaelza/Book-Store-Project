@@ -49,6 +49,23 @@ namespace Book_Store_Application.Controllers
             }
             return booklist;
         }
+        public List<Books> GetBookById(int p_bookID)
+        {
+            try
+            {
+                booklist = bookObj.GetBookById(p_bookID);
+            }
+            catch (Exception ex)
+            {
+                FileStream myfile = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sr = new StreamWriter(myfile);
+                sr.WriteLine(ex.Message);
+                sr.Close();
+                myfile.Close();
+
+            }
+            return booklist;
+        }
 
         public List<Books> GetBookByTitleAuthor(string p_value)
         {
