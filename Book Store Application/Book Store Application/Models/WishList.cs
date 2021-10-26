@@ -101,12 +101,23 @@ namespace Book_Store_Application.Models
             cmd_updatedata.Parameters.AddWithValue("@p_bookId", wishObj.bookId);
             cmd_updatedata.Parameters.AddWithValue("@p_userId", wishObj.userId);
             con.Open();
-            int result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
-            con.Close();
+            int result=0;
+            try
+            {
+                result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
+                
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not update record wishIdId=" + wishObj.wishId + " in WishList table");
+
+            }
             if (result == 0)
             {
                 throw new Exception("Could not update record wishIdId=" + wishObj.wishId + " in WishList table");
             }
+            con.Close();
             return result;
 
 
