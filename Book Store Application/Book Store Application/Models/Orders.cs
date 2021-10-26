@@ -133,12 +133,12 @@ namespace Book_Store_Project.Models
                 throw new Exception("Could not add entry into Orders table");
             }
             
-
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Orders table");
             }
-            con.Close();
+            
             return result;
 
         }
