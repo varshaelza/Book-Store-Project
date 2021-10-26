@@ -99,12 +99,12 @@ namespace Book_Store_Project.Models
                 con.Close();
                 throw new Exception("Could not add entry into Cart table");
             }
-            
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Cart table");
             }
-            con.Close();
+            
             return result;
 
         }
@@ -126,12 +126,12 @@ namespace Book_Store_Project.Models
                 con.Close();
                 throw new Exception("Could not update record cartId = " + id + " in Cart table");
             }
-            
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not update record cartId = " + id + " in Cart table");
             }
-            con.Close();
+            
             return result;
         }
 
