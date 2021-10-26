@@ -32,14 +32,14 @@ namespace Book_Store_Application.Controllers
 
             return userlist;
         }
-        public Users GetUserById(int p_userId)
+        public List<Users> GetUserById(int p_userId)
         {
             Users userobj = new Users();
-            List<Users> userlist = new List<Users>();
-            Users singleuser = new Users();
+            List<Users> userlist = new List<Users>();            
             try
             {
-               singleuser= userobj.GetUserById(p_userId);
+               userlist= userobj.GetUserById(p_userId);            
+              
             }
             catch (Exception ex)
             {
@@ -51,17 +51,17 @@ namespace Book_Store_Application.Controllers
 
             }
 
-            return singleuser;
+            return userlist;
         }
 
-        public Users GetUserByName(string p_userName)
+        public List<Users> GetUserByName(string p_userName)
         {
             Users userobj = new Users();
             List<Users> userlist = new List<Users>();
-            Users userbyname = new Users();
+           
             try
             {
-                userbyname = userobj.GetUserByName(p_userName);
+                userlist = userobj.GetUserByName(p_userName);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Book_Store_Application.Controllers
 
             }
 
-            return userbyname;
+            return userlist;
         }
 
         [HttpPost]
