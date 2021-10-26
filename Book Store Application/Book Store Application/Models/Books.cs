@@ -27,6 +27,7 @@ namespace Book_Store_Application.Models
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
         SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books");
         SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid");
+        SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId");
         SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title = @p_value or author=@p_value");
         SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)"); 
         SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
@@ -35,6 +36,7 @@ namespace Book_Store_Application.Models
         List<Books> bookList = new List<Books>();
         List<Books> bookcatlist = new List<Books>();
         List<Books> booktitleauthorlist = new List<Books>();
+        List<Books> bookidlist = new List<Books>();
 
         public List<Books> GetAllBooks()
         {
@@ -103,10 +105,47 @@ namespace Book_Store_Application.Models
             con.Close();
             if (bookcatlist.Count == 0)
             {
-                throw new Exception("Books table does not contain any entries with the mentioned category ID");
+                throw new Exception("Record categoryId = " + p_catID + " not found in Books table");
 
             }
             return bookcatlist;
+        }
+
+        public List<Books> GetBookById(int p_bookID)
+        {
+            cmd_getBookById.Connection = con;
+            cmd_getBookById.Parameters.AddWithValue("@bookId", p_bookID);
+            SqlDataReader _readBook;
+            con.Open();
+            _readBook = cmd_getBookById.ExecuteReader();
+            while (_readBook.Read())
+            {
+
+                bookidlist.Add(new Books()
+                {
+                    bookId = Convert.ToInt32(_readBook[0]),
+                    categoryId = Convert.ToInt32(_readBook[1]),
+                    title = _readBook[2].ToString(),
+                    ISBN = Convert.ToInt32(_readBook[3]),
+                    year = Convert.ToInt32(_readBook[4]),
+                    bookPrice = Convert.ToDouble(_readBook[5]),
+                    bookDescription = _readBook[6].ToString(),
+                    bookPosition = Convert.ToInt32(_readBook[7]),
+                    bookStatus = Convert.ToBoolean(_readBook[8]),
+                    bookImage = _readBook[9].ToString(),
+                    author = _readBook[10].ToString(),
+                    availableQty = Convert.ToInt32(_readBook[11])
+
+                });
+            }
+            _readBook.Close();
+            con.Close();
+            if (bookidlist.Count == 0)
+            {
+                throw new Exception("Record bookId = " + p_bookID + " not found in Books table");
+
+            }
+            return bookidlist;
         }
 
         public List<Books> GetBookByTitleAuthor(string p_value)
@@ -140,7 +179,7 @@ namespace Book_Store_Application.Models
             con.Close();
             if (booktitleauthorlist.Count == 0)
             {
-                throw new Exception("Books table does not contain any entries with this author or title");
+                throw new Exception("Record title/author = " + p_value + " not found in Books table");
 
             }
             return booktitleauthorlist;
@@ -201,12 +240,12 @@ namespace Book_Store_Application.Models
             catch (Exception ex)
             {
                 con.Close();
-                throw new Exception("Could not update entry in Books table");
+                throw new Exception("Could not update record bookId = " + newbk.bookId + " in Books table");
             }
             con.Close();
             if (result == 0)
             {
-                throw new Exception("Could not update entry in Books table");
+                throw new Exception("Could not update record bookId = " + newbk.bookId + " in Books table");
             }
             return result;
         }
@@ -225,12 +264,12 @@ namespace Book_Store_Application.Models
             catch (Exception ex)
             {
                 con.Close();
-                throw new Exception("Could not delete entry from Books table");
+                throw new Exception("Could not delete record bookId = " + p_bookID + " in Books table");
             }
             con.Close();
             if (result == 0)
             {
-                throw new Exception("Could not delete entry from Books table");
+                throw new Exception("Could not delete record bookId = " + p_bookID + " in Books table");
             }
             return result;
 
