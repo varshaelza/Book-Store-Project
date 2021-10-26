@@ -64,6 +64,11 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if (bookList.Count==0)
+            {
+                throw new Exception("Books table does not contain any entries");
+
+            }
             return bookList;
         }
 
@@ -96,6 +101,11 @@ namespace Book_Store_Application.Models
             }
             _readBook.Close();
             con.Close();
+            if (bookcatlist.Count == 0)
+            {
+                throw new Exception("Books table does not contain any entries with the mentioned category ID");
+
+            }
             return bookcatlist;
         }
 
@@ -128,6 +138,11 @@ namespace Book_Store_Application.Models
             }
             _readBook.Close();
             con.Close();
+            if (booktitleauthorlist.Count == 0)
+            {
+                throw new Exception("Books table does not contain any entries with this author or title");
+
+            }
             return booktitleauthorlist;
         }
 
@@ -145,10 +160,22 @@ namespace Book_Store_Application.Models
             cmd_addBook.Parameters.AddWithValue("@bookimage", newbook.bookImage);
             cmd_addBook.Parameters.AddWithValue("@author", newbook.author);
             cmd_addBook.Parameters.AddWithValue("@availableQty", newbook.availableQty);
+            int result = 0;
 
             con.Open();
-            int result = cmd_addBook.ExecuteNonQuery();
+            try {
+                result = cmd_addBook.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Books table");
+            }            
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not add entry into Books table");
+            }
             return result;
 
         }
@@ -164,9 +191,23 @@ namespace Book_Store_Application.Models
             cmd_updateBook.Parameters.AddWithValue("@author", newbk.author);
             cmd_updateBook.Parameters.AddWithValue("@availableQty", newbk.availableQty);
             cmd_updateBook.Parameters.AddWithValue("@bookID", newbk.bookId);
+            int result = 0;
+
             con.Open();
-            int result = cmd_updateBook.ExecuteNonQuery();
+            try
+            {
+                result = cmd_updateBook.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update entry in Books table");
+            }
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update entry in Books table");
+            }
             return result;
         }
 
@@ -174,9 +215,23 @@ namespace Book_Store_Application.Models
         {
             cmd_deleteBook.Connection = con;
             cmd_deleteBook.Parameters.AddWithValue("@bookid", p_bookID);
+            int result = 0;
+
             con.Open();
-            int result = cmd_deleteBook.ExecuteNonQuery();
+            try
+            {
+                result = cmd_deleteBook.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not delete entry from Books table");
+            }
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not delete entry from Books table");
+            }
             return result;
 
         }
