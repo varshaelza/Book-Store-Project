@@ -127,7 +127,18 @@ namespace Book_Store_Application.Models
             cmd_updatedata.Parameters.AddWithValue("@p_minPurchase", disObj.minPurchase);
             cmd_updatedata.Parameters.AddWithValue("@p_disPercent", disObj.disPercent);
             con.Open();
-            int result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
+            int result=0;
+            try
+            {
+                result = cmd_updatedata.ExecuteNonQuery();//returns number of lines affected
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not update record couponId=" + disObj.couponId + " in Discount table");
+            
+            }
+                
             con.Close();
             if (result == 0)
             {
