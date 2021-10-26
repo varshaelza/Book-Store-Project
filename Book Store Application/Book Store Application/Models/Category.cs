@@ -79,12 +79,12 @@ namespace Book_Store_Project.Models
                 throw new Exception("Could not add entry into Category table");
             }
             
-
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Category table");
             }
-            con.Close();
+            
             return result;
 
         }
@@ -112,12 +112,12 @@ namespace Book_Store_Project.Models
                 throw new Exception("Could not update record categoryId = " + id + " in Category table");
             }
             
-
+            con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not update record categoryId = " + id + " in Category table");
             }
-            con.Close();
+            
             return result;
         }
 
