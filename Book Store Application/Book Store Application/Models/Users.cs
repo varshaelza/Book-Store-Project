@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +25,7 @@ namespace Book_Store_Application.Models
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
         SqlCommand cmd_getAllUsers = new SqlCommand("select * from Users");
         SqlCommand cmd_getUserbyId = new SqlCommand("select * from Users where userId=@userId");
+        SqlCommand cmd_getUserbyName = new SqlCommand("select * from Users where userName=@userName");
         SqlCommand cmd_addUser = new SqlCommand("insert into Users(userName, [password], firstName, lastName,  userEmail,  userMobile,  userAddress) values(@userName,@password,@firstName,@lastName,@userEmail,@userMobile,@userAddress)"); 
         SqlCommand cmd_updateUser = new SqlCommand("update Users set userName=@userName,password=@password,firstName=@firstName,lastName=@lastName,userEmail=@userEmail,userMobile=@userMobile,userAddress=@userAddress,isActive=@isActive where userId=@userId");
         SqlCommand cmd_deleteUser = new SqlCommand("delete from Users where userId=@userId");
@@ -59,6 +60,11 @@ namespace Book_Store_Application.Models
             }
             _read.Close();
             con.Close();
+            if (userlist.Count == 0)
+            {
+                throw new Exception("Users table does not contain any entries");
+
+            }
             return userlist;
         }
 
@@ -88,6 +94,44 @@ namespace Book_Store_Application.Models
             
             _readUser.Close();
             con.Close();
+            if (user == null)
+            {
+                throw new Exception("Books table does not contain any entries with this user ID");
+
+            }
+            return user;
+        }
+
+        public Users GetUserByName(string p_userName)
+        {
+            cmd_getUserbyName.Connection = con;
+            cmd_getUserbyName.Parameters.AddWithValue("@userName", p_userName);
+            SqlDataReader _readUser;
+            con.Open();
+            _readUser = cmd_getUserbyName.ExecuteReader();
+            _readUser.Read();
+
+            Users user = new Users()
+            {
+                userID = Convert.ToInt32(_readUser[0]),
+                userName = _readUser[1].ToString(),
+                //userPassword = _readUser[2].ToString(),
+                firstName = _readUser[3].ToString(),
+                lastName = _readUser[4].ToString(),
+                userEmail = _readUser[5].ToString(),
+                userMobile = Convert.ToDouble(_readUser[6]),
+                userAddress = _readUser[8].ToString(),
+                isactive = Convert.ToBoolean(_readUser[9])
+
+
+            };
+
+            _readUser.Close();
+            con.Close();
+            if (user == null)
+            {
+                throw new Exception("Books table does not contain any entries with this username");
+            }
             return user;
         }
 
@@ -103,10 +147,23 @@ namespace Book_Store_Application.Models
             cmd_addUser.Parameters.AddWithValue("@userMobile", newuser.userMobile);
             cmd_addUser.Parameters.AddWithValue("@userAddress", newuser.userAddress);
 
+            int result = 0;
 
             con.Open();
-            int result = cmd_addUser.ExecuteNonQuery();
+            try
+            {
+                result = cmd_addUser.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Users table");
+            }
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not add entry into Users table");
+            }
             return result;
 
         }
@@ -124,9 +181,23 @@ namespace Book_Store_Application.Models
             cmd_updateUser.Parameters.AddWithValue("@isActive", newusr.isactive);
             cmd_updateUser.Parameters.AddWithValue("@userId", newusr.userID);
 
+            int result = 0;
+
             con.Open();
-            int result = cmd_updateUser.ExecuteNonQuery();
+            try
+            {
+                result = cmd_updateUser.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update entry in Users table");
+            }
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update entry in Users table");
+            }
             return result;
         }
 
@@ -134,9 +205,24 @@ namespace Book_Store_Application.Models
         {
             cmd_deleteUser.Connection = con;
             cmd_deleteUser.Parameters.AddWithValue("@userId", p_userId);
+
+            int result = 0;
+
             con.Open();
-            int result = cmd_deleteUser.ExecuteNonQuery();
+            try
+            {
+                result = cmd_deleteUser.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not delete entry from Users table");
+            }
             con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not delete entry from Users table");
+            }
             return result;
 
         }
