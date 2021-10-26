@@ -87,15 +87,24 @@ namespace Book_Store_Project.Models
             cmd_addItem.Parameters.AddWithValue("@userId", cartObj.userId);
             cmd_addItem.Parameters.AddWithValue("@bookId", cartObj.bookId);
             cmd_addItem.Parameters.AddWithValue("@bookQty", cartObj.bookQty);
-
+            int result = 0;
 
             con.Open();
-            int result = cmd_addItem.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                result = cmd_addItem.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not add entry into Cart table");
+            }
+            
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Cart table");
             }
+            con.Close();
             return result;
 
         }
@@ -105,14 +114,24 @@ namespace Book_Store_Project.Models
             cmd_updateItem.Connection = con;
             cmd_updateItem.Parameters.AddWithValue("@bookQty", cartObj.bookQty);
             cmd_updateItem.Parameters.AddWithValue("@cartId", id);
+            int result = 0;
+
             con.Open();
-            int result = cmd_updateItem.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                result = cmd_updateItem.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update record cartId = " + id + " in Cart table");
+            }
+            
             if (result == 0)
             {
                 throw new Exception("Could not update record cartId = " + id + " in Cart table");
             }
-
+            con.Close();
             return result;
         }
 
