@@ -149,12 +149,21 @@ namespace Book_Store_Application.Models
 
 
         }
-        public int DeleteDiscount(int p_couponId)
+         public int DeleteDiscount(int p_couponId)
         {
             cmd_deletedata.Connection = con;
             cmd_deletedata.Parameters.AddWithValue("@p_couponId", p_couponId);
             con.Open();
-            int result = cmd_deletedata.ExecuteNonQuery();//returns number of lines affected
+            int result = 0;
+            try
+            {
+                result= cmd_deletedata.ExecuteNonQuery();//returns number of lines affected
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not delete record couponId=" + p_couponId + " in Discount table");
+            }   
             con.Close();
             if (result == 0)
             {
