@@ -25,10 +25,10 @@ namespace Book_Store_Application.Models
 
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
-        SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books");
-        SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid");
-        SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId");
-        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title = @p_value or author=@p_value");
+        SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books order by bookPosition");
+        SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid order by bookPosition");
+        SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId order by bookPosition");
+        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title = @p_value or author=@p_value order by bookPosition");
         SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)"); 
         SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
         SqlCommand cmd_deleteBook = new SqlCommand("delete from Books where bookId=@bookid");
