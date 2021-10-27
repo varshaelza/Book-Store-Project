@@ -29,8 +29,9 @@ namespace Book_Store_Application.Models
         SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid order by bookPosition");
         SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId order by bookPosition");
         SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title LIKE @p_value or author LIKE @p_value");
-        SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)"); 
+        SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)");
         SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
+        SqlCommand cmd_updateBookpos = new SqlCommand("update Books set bookPosition=@bookPos where bookID=@bookId");
         SqlCommand cmd_deleteBook = new SqlCommand("delete from Books where bookId=@bookid");
 
         List<Books> bookList = new List<Books>();
@@ -59,14 +60,14 @@ namespace Book_Store_Application.Models
                     bookStatus = Convert.ToBoolean(_read[8]),
                     bookImage = _read[9].ToString(),
                     author = _read[10].ToString(),
-                    availableQty=Convert.ToInt32(_read[11])
-                    
+                    availableQty = Convert.ToInt32(_read[11])
+
 
                 });
             }
             _read.Close();
             con.Close();
-            if (bookList.Count==0)
+            if (bookList.Count == 0)
             {
                 throw new Exception("Books table does not contain any entries");
 
@@ -80,26 +81,26 @@ namespace Book_Store_Application.Models
             cmd_getBookByCategory.Parameters.AddWithValue("@catid", p_catID);
             SqlDataReader _readBook;
             con.Open();
-            _readBook = cmd_getBookByCategory.ExecuteReader();            
+            _readBook = cmd_getBookByCategory.ExecuteReader();
             while (_readBook.Read())
-            {           
+            {
 
-               bookcatlist.Add(new Books()
-               {
-                bookId= Convert.ToInt32(_readBook[0]),
-                categoryId = Convert.ToInt32(_readBook[1]),
-                title = _readBook[2].ToString(),
-                ISBN = Convert.ToInt32(_readBook[3]),
-                year = Convert.ToInt32(_readBook[4]),
-                bookPrice= Convert.ToDouble(_readBook[5]),
-                bookDescription= _readBook[6].ToString(),
-                bookPosition=Convert.ToInt32(_readBook[7]),
-                bookStatus = Convert.ToBoolean(_readBook[8]),
-                bookImage=_readBook[9].ToString(),
-                author = _readBook[10].ToString(),
-                availableQty = Convert.ToInt32(_readBook[11])
-                   
-               });
+                bookcatlist.Add(new Books()
+                {
+                    bookId = Convert.ToInt32(_readBook[0]),
+                    categoryId = Convert.ToInt32(_readBook[1]),
+                    title = _readBook[2].ToString(),
+                    ISBN = Convert.ToInt32(_readBook[3]),
+                    year = Convert.ToInt32(_readBook[4]),
+                    bookPrice = Convert.ToDouble(_readBook[5]),
+                    bookDescription = _readBook[6].ToString(),
+                    bookPosition = Convert.ToInt32(_readBook[7]),
+                    bookStatus = Convert.ToBoolean(_readBook[8]),
+                    bookImage = _readBook[9].ToString(),
+                    author = _readBook[10].ToString(),
+                    availableQty = Convert.ToInt32(_readBook[11])
+
+                });
             }
             _readBook.Close();
             con.Close();
@@ -172,7 +173,7 @@ namespace Book_Store_Application.Models
                     bookImage = _readBook[9].ToString(),
                     author = _readBook[10].ToString(),
                     availableQty = Convert.ToInt32(_readBook[11])
-                    
+
                 });
             }
             _readBook.Close();
@@ -202,14 +203,15 @@ namespace Book_Store_Application.Models
             int result = 0;
 
             con.Open();
-            try {
+            try
+            {
                 result = cmd_addBook.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 con.Close();
                 throw new Exception("Could not add entry into Books table");
-            }            
+            }
             con.Close();
             if (result == 0)
             {
@@ -249,6 +251,35 @@ namespace Book_Store_Application.Models
             }
             return result;
         }
+
+        public int updateBookbyPos(int p_bookId,int p_bookpos)
+        {
+            cmd_updateBookpos.Connection = con;
+            
+            cmd_updateBookpos.Parameters.AddWithValue("@bookpos", p_bookpos);
+            
+            cmd_updateBookpos.Parameters.AddWithValue("@bookID", p_bookId);
+            int result = 0;
+
+            con.Open();
+            try
+            {
+                result = cmd_updateBookpos.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update record bookId = " + p_bookId + " in Books table");
+            }
+            con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update record bookId = " + p_bookId + " in Books table");
+            }
+            return result;
+        }
+
+
 
         public int deleteBook(int p_bookID)
         {
