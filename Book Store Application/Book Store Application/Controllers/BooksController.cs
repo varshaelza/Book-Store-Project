@@ -18,7 +18,7 @@ namespace Book_Store_Application.Controllers
         {
 
             try
-            {                
+            {
                 booklist = bookObj.GetAllBooks();
             }
             catch (Exception ex)
@@ -100,7 +100,7 @@ namespace Book_Store_Application.Controllers
                 myfile.Close();
 
             }
-            
+
             return bookObj.GetAllBooks();
         }
         [HttpPut]
@@ -122,6 +122,27 @@ namespace Book_Store_Application.Controllers
 
             return bookObj.GetAllBooks();
         }
+
+        [HttpPut]
+        public List<Books> Put(int p_bookId,int p_bookpos)
+        {
+            try
+            {
+                bookObj.updateBookbyPos(p_bookId,p_bookpos);
+            }
+            catch (Exception ex)
+            {
+                FileStream myfile = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sr = new StreamWriter(myfile);
+                sr.WriteLine(ex.Message);
+                sr.Close();
+                myfile.Close();
+
+            }
+
+            return bookObj.GetAllBooks();
+        }
+
         [HttpDelete]
         public List<Books> Delete(int p_bookID)
         {
