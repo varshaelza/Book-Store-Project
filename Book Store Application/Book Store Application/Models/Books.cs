@@ -28,7 +28,7 @@ namespace Book_Store_Application.Models
         SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books order by bookPosition");
         SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid order by bookPosition");
         SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId order by bookPosition");
-        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title = @p_value or author=@p_value order by bookPosition");
+        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title LIKE @p_value or author LIKE @p_value");
         SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)"); 
         SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
         SqlCommand cmd_deleteBook = new SqlCommand("delete from Books where bookId=@bookid");
@@ -151,7 +151,7 @@ namespace Book_Store_Application.Models
         public List<Books> GetBookByTitleAuthor(string p_value)
         {
             cmd_getBookByTitleAuthor.Connection = con;
-            cmd_getBookByTitleAuthor.Parameters.AddWithValue("@p_value", p_value);
+            cmd_getBookByTitleAuthor.Parameters.AddWithValue("@p_value", "%" + p_value + "%");
             SqlDataReader _readBook;
             con.Open();
             _readBook = cmd_getBookByTitleAuthor.ExecuteReader();
