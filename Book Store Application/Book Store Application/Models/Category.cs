@@ -24,6 +24,7 @@ namespace Book_Store_Project.Models
         SqlCommand cmd_getAllData = new SqlCommand("select * from Category order by categoryPosition");
         SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,@categoryCreatedAt)");
         SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition, categoryCreatedAt=@categoryCreatedAt where categoryId = @categoryId");
+        SqlCommand cmd_updateCategorypos = new SqlCommand("update Category set   categoryPosition=@categoryPosition where categoryId = @categoryId");
         SqlCommand cmd_deleteCategory = new SqlCommand("delete from Category where categoryId = @categoryId");
 
         #region Methods
@@ -33,7 +34,7 @@ namespace Book_Store_Project.Models
             cmd_getAllData.Connection = con; //my command is going to use connection
             SqlDataReader _read;
             con.Open();
-            _read = cmd_getAllData.ExecuteReader(); 
+            _read = cmd_getAllData.ExecuteReader();
             while (_read.Read())
             {
                 catList.Add(new Category()
@@ -73,18 +74,18 @@ namespace Book_Store_Project.Models
             {
                 result = cmd_addCategory.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 con.Close();
                 throw new Exception("Could not add entry into Category table");
             }
-            
+
             con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not add entry into Category table");
             }
-            
+
             return result;
 
         }
@@ -106,21 +107,50 @@ namespace Book_Store_Project.Models
             {
                 result = cmd_updateCategory.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 con.Close();
                 throw new Exception("Could not update record categoryId = " + id + " in Category table");
             }
-            
+
             con.Close();
             if (result == 0)
             {
                 throw new Exception("Could not update record categoryId = " + id + " in Category table");
             }
-            
+
+
+
             return result;
         }
 
+        public int UpdateCategorybyPos(int id, int pos)
+        {
+            cmd_updateCategorypos.Connection = con;
+            cmd_updateCategorypos.Parameters.AddWithValue("@categoryPosition", pos);
+            cmd_updateCategorypos.Parameters.AddWithValue("@categoryId", id);
+            int result = 0;
+            con.Open();
+
+            try
+            {
+                result = cmd_updateCategorypos.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw new Exception("Could not update record categoryId = " + id + " in Category table");
+            }
+
+            con.Close();
+            if (result == 0)
+            {
+                throw new Exception("Could not update record categoryId = " + id + " in Category table");
+            }
+
+
+            return result;
+        }
         public int DeleteCategory(int id)
         {
             cmd_deleteCategory.Connection = con;
