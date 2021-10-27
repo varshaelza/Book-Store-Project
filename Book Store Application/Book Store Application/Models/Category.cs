@@ -156,7 +156,16 @@ namespace Book_Store_Project.Models
             cmd_deleteCategory.Connection = con;
             cmd_deleteCategory.Parameters.AddWithValue("@categoryId", id);
             con.Open();
-            int result = cmd_deleteCategory.ExecuteNonQuery();
+            int result = 0;
+            try
+            {
+                result = cmd_deleteCategory.ExecuteNonQuery();
+            }
+            catch
+            {
+                con.Close();
+                throw new Exception("Could not delete record categoryId = " + id + " in Category table");
+            }  
             con.Close();
 
             if (result == 0)
