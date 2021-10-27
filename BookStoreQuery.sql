@@ -175,6 +175,8 @@
 
 
 --alter table Cart add constraint UK_bookUser UNIQUE(bookId,userId)
+--alter table Books drop constraint UK_bookposition
+--alter table Category drop constraint UK_categoryposition
 
 ------------------------------------------------INSERT INTO TABLES--------------------------------------------------------
 
