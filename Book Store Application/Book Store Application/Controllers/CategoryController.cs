@@ -15,7 +15,7 @@ namespace Book_Store_Project.Controllers
         [HttpGet]
         public List<Category> GetCategory()
         {
-            
+
             List<Category> catList = new List<Category>();
             try
             {
@@ -30,7 +30,7 @@ namespace Book_Store_Project.Controllers
                 sw.Close();
                 fs.Close();
             }
-           
+
             return catList;
         }
 
@@ -63,14 +63,33 @@ namespace Book_Store_Project.Controllers
             {
                 cat.UpdateCategory(id, updObj);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.WriteLine(ex.Message);
                 sw.Close();
                 fs.Close();
-            }            
+            }
+            return cat.GetAllCategory();
+        }
+
+        [HttpPut]
+        public List<Category> PutCategory(int id, int pos)
+        {
+            Category cat = new Category();
+            try
+            {
+                cat.UpdateCategorybyPos(id, pos);
+            }
+            catch (Exception ex)
+            {
+                FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(ex.Message);
+                sw.Close();
+                fs.Close();
+            }
             return cat.GetAllCategory();
         }
 
@@ -82,7 +101,7 @@ namespace Book_Store_Project.Controllers
             {
                 cat.DeleteCategory(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 FileStream fs = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs);
@@ -90,7 +109,7 @@ namespace Book_Store_Project.Controllers
                 sw.Close();
                 fs.Close();
             }
-                        
+
             return cat.GetAllCategory();
         }
     }
