@@ -21,7 +21,7 @@ namespace Book_Store_Project.Models
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
-        SqlCommand cmd_getAllData = new SqlCommand("select * from Category where categoryStatus = 1 order by categoryPosition");
+        SqlCommand cmd_getAllData = new SqlCommand("select * from Category order by categoryPosition");
         SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,@categoryCreatedAt)");
         SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition, categoryCreatedAt=@categoryCreatedAt where categoryId = @categoryId");
         SqlCommand cmd_deleteCategory = new SqlCommand("delete from Category where categoryId = @categoryId");
