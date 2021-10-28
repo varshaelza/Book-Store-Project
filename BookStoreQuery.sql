@@ -170,21 +170,21 @@
 --update Category set categoryImg ='https://static.independent.co.uk/2021/02/23/17/poetry-books-world-poetry-day-indybest.jpg?width=982&height=726&auto=webp&quality=75' where categoryId=9;
 --update Category set categoryImg = 'https://s26162.pcdn.co/wp-content/uploads/sites/2/2018/12/Memoir-Biography.png' where categoryId=10;
 
-update books set bookImage =  'https://en.frenchpdf.com/wp-content/uploads/2020/03/Jane-Eyre-_PDF-By_EnglishPDF.jpg' where bookId=1;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.DL5SsiRwR27vl9-G9SVcZgHaKm?pid=ImgDet&rs=1' where bookId=2;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.mhFI3Nd75_9KE06fiw-XGAHaKN?pid=ImgDet&rs=1' where bookId=3;
-update books set bookImage =  'https://th.bing.com/th/id/R.d60c1a90a41a745f94c7a75454f624f0?rik=SLDUKxi2RyP%2fiw&riu=http%3a%2f%2fimage.slidesharecdn.com%2fwingsoffireapjabdulkalam-111129005913-phpapp02%2f95%2fwings-of-fire-apj-abdul-kalam-1-728.jpg%3fcb%3d1322552307&ehk=NEHR9OgBL3lmg0xzM93a4GJfzrVvwvAJypt6MVxgRBQ%3d&risl=&pid=ImgRaw&r=0' where bookId=4;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.ZO2L11L_Fd1RuvEuIms2gAHaLQ?pid=ImgDet&rs=1' where bookId=5;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.DN39v-2asg_tfCe77aegJQHaHa?pid=ImgDet&rs=1' where bookId=6;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.u1SLh8tRmxKlOWBufce7WQHaLN?pid=ImgDet&rs=1' where bookId=7;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.oH3dIgHnjCOeRMEIAeN2qgHaLP?pid=ImgDet&rs=1' where bookId=8;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.j-_x9yCGpMUta_JRzcwdOgHaLW?pid=ImgDet&rs=1' where bookId=9;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.5sRKbg1DNjvPLV9W_7AzVgHaLL?pid=ImgDet&rs=1' where bookId=10;
-update books set bookImage =  'https://th.bing.com/th/id/R.5eec2a9e3f547fd1950943e1d11e41c6?rik=4TQKCk%2bHYLCqxw&riu=http%3a%2f%2fprodimage.images-bn.com%2fpimages%2f9780385504218_p0_v8_s1200x630.jpg&ehk=tQnwKcZhhRtWML1%2fn6FTudgMI3hNYCM1ZQFW%2burkF90%3d&risl=&pid=ImgRaw&r=0' where bookId=11;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.iCJosmxWBs0wEP4upBwVCAHaLq?pid=ImgDet&rs=1' where bookId=12;
-update books set bookImage =  'https://th.bing.com/th/id/R.66978526ffd4712672489c7f0c05e204?rik=GKMGILNVujpx4g&riu=http%3a%2f%2fstatic5.businessinsider.com%2fimage%2f58d2d3a8dd089592238b49e3-1200%2fleaves-of-grass-by-walt-whitman.jpg&ehk=f%2ftysxogXmrzNfKquyxeeDZRIVpeNaFZS9AK7UrvBmI%3d&risl=&pid=ImgRaw&r=0' where bookId=13;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.xR14nwTlLDVI5dPXTbP5tgHaLb?pid=ImgDet&rs=1' where bookId=14;
-update books set bookImage =  'https://th.bing.com/th/id/OIP.ngyexyksr3dt91TzcI8ZHQHaLo?pid=ImgDet&rs=1' where bookId=16;
+--update books set bookImage =  'https://en.frenchpdf.com/wp-content/uploads/2020/03/Jane-Eyre-_PDF-By_EnglishPDF.jpg' where bookId=1;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.DL5SsiRwR27vl9-G9SVcZgHaKm?pid=ImgDet&rs=1' where bookId=2;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.mhFI3Nd75_9KE06fiw-XGAHaKN?pid=ImgDet&rs=1' where bookId=3;
+--update books set bookImage =  'https://th.bing.com/th/id/R.d60c1a90a41a745f94c7a75454f624f0?rik=SLDUKxi2RyP%2fiw&riu=http%3a%2f%2fimage.slidesharecdn.com%2fwingsoffireapjabdulkalam-111129005913-phpapp02%2f95%2fwings-of-fire-apj-abdul-kalam-1-728.jpg%3fcb%3d1322552307&ehk=NEHR9OgBL3lmg0xzM93a4GJfzrVvwvAJypt6MVxgRBQ%3d&risl=&pid=ImgRaw&r=0' where bookId=4;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.ZO2L11L_Fd1RuvEuIms2gAHaLQ?pid=ImgDet&rs=1' where bookId=5;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.DN39v-2asg_tfCe77aegJQHaHa?pid=ImgDet&rs=1' where bookId=6;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.u1SLh8tRmxKlOWBufce7WQHaLN?pid=ImgDet&rs=1' where bookId=7;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.oH3dIgHnjCOeRMEIAeN2qgHaLP?pid=ImgDet&rs=1' where bookId=8;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.j-_x9yCGpMUta_JRzcwdOgHaLW?pid=ImgDet&rs=1' where bookId=9;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.5sRKbg1DNjvPLV9W_7AzVgHaLL?pid=ImgDet&rs=1' where bookId=10;
+--update books set bookImage =  'https://th.bing.com/th/id/R.5eec2a9e3f547fd1950943e1d11e41c6?rik=4TQKCk%2bHYLCqxw&riu=http%3a%2f%2fprodimage.images-bn.com%2fpimages%2f9780385504218_p0_v8_s1200x630.jpg&ehk=tQnwKcZhhRtWML1%2fn6FTudgMI3hNYCM1ZQFW%2burkF90%3d&risl=&pid=ImgRaw&r=0' where bookId=11;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.iCJosmxWBs0wEP4upBwVCAHaLq?pid=ImgDet&rs=1' where bookId=12;
+--update books set bookImage =  'https://th.bing.com/th/id/R.66978526ffd4712672489c7f0c05e204?rik=GKMGILNVujpx4g&riu=http%3a%2f%2fstatic5.businessinsider.com%2fimage%2f58d2d3a8dd089592238b49e3-1200%2fleaves-of-grass-by-walt-whitman.jpg&ehk=f%2ftysxogXmrzNfKquyxeeDZRIVpeNaFZS9AK7UrvBmI%3d&risl=&pid=ImgRaw&r=0' where bookId=13;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.xR14nwTlLDVI5dPXTbP5tgHaLb?pid=ImgDet&rs=1' where bookId=14;
+--update books set bookImage =  'https://th.bing.com/th/id/OIP.ngyexyksr3dt91TzcI8ZHQHaLo?pid=ImgDet&rs=1' where bookId=16;
 
 
 
@@ -348,6 +348,25 @@ update books set bookImage =  'https://th.bing.com/th/id/OIP.ngyexyksr3dt91TzcI8
 --	deallocate c1
 --end
 
+--create trigger bookdelete
+--on
+--Books
+--after
+--delete
+--as begin
+--	declare @delpos int=(select bookPosition from deleted)
+--	update Books set bookPosition=bookPosition-1 where bookPosition>@delpos
+--end
+
+--create trigger catdelete
+--on
+--Category
+--after
+--delete
+--as begin
+--	declare @delpos int=(select categoryPosition from deleted)
+--	update Category set categoryPosition=categoryPosition-1 where categoryPosition>@delpos
+--end
 
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
