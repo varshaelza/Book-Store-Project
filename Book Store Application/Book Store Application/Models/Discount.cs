@@ -15,7 +15,7 @@ namespace Book_Store_Application.Models
         public double minPurchase { get; set; }
         public double disPercent { get; set; }
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
-        SqlCommand cmd_getalldata = new SqlCommand("select * from Discount");
+        SqlCommand cmd_getalldata = new SqlCommand("select * from Discount where couponCode!='BS000'");
         SqlCommand cmd_getbyminpurchase = new SqlCommand("select * from Discount where minPurchase< @p_totPurchase");
         SqlCommand cmd_getbycouponcode = new SqlCommand("select * from Discount where couponCode=@p_couponCode");
         SqlCommand cmd_insertdata = new SqlCommand("insert into Discount values(@p_couponCode,@p_minPurchase,@p_disPercent)");
