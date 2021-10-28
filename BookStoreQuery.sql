@@ -239,6 +239,7 @@
 --insert into Discount values('BS020',3000,20);
 --insert into Discount values('BS030',4000,30);
 --insert into Discount values('BS050',5000,50);
+--insert into Discount values('BS000'0,0);
 
 --insert into WishList values(3,2);
 --insert into WishList values(4,3);
