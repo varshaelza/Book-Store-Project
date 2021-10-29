@@ -280,6 +280,8 @@
 
 ------------------------------------------------TRIGGERS AND FUNCTIONS--------------------------------------------------------
 
+
+
 --create function func_calctotal(@orderId int,@discount float) returns float
 --begin
 --	declare @total float;
@@ -369,6 +371,27 @@
 --	update Category set categoryPosition=categoryPosition-1 where categoryPosition>@delpos
 --end
 
+--create trigger bookadd
+--on
+--Books
+--after
+--insert
+--as begin
+--	declare @addpos int=(select bookPosition from inserted)
+--	declare @addid int=(select bookId from inserted)
+--	update Books set bookPosition=bookPosition+1 where bookPosition>=@addpos and bookId!=@addId
+--end
+
+--create trigger catadd
+--on
+--Category
+--after
+--insert
+--as begin
+--	declare @addpos int=(select categoryPosition from inserted)
+--	declare @addid int=(select categoryId from inserted)
+--	update Category set categoryPosition=categoryPosition+1 where categoryPosition>=@addpos and categoryId!=@addId
+--end
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
 --insert into Orders values(4,1,0,getdate());
