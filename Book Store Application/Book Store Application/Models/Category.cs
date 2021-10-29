@@ -22,8 +22,8 @@ namespace Book_Store_Project.Models
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
         SqlCommand cmd_getAllData = new SqlCommand("select * from Category order by categoryPosition");
-        SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,@categoryCreatedAt)");
-        SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition, categoryCreatedAt=@categoryCreatedAt where categoryId = @categoryId");
+        SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,getdate())");
+        SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition where categoryId = @categoryId");
         SqlCommand cmd_updateCategorypos = new SqlCommand("update Category set   categoryPosition=@categoryPosition where categoryId = @categoryId");
         SqlCommand cmd_deleteCategory = new SqlCommand("delete from Category where categoryId = @categoryId");
 
@@ -66,7 +66,7 @@ namespace Book_Store_Project.Models
             cmd_addCategory.Parameters.AddWithValue("@categoryImg", catObj.categoryImg);
             cmd_addCategory.Parameters.AddWithValue("@categoryStatus", catObj.categoryStatus);
             cmd_addCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
-            cmd_addCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
+            //cmd_addCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
             int result = 0;
 
             con.Open();
@@ -98,7 +98,7 @@ namespace Book_Store_Project.Models
             cmd_updateCategory.Parameters.AddWithValue("@categoryImg", catObj.categoryImg);
             cmd_updateCategory.Parameters.AddWithValue("@categoryStatus", catObj.categoryStatus);
             cmd_updateCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
-            cmd_updateCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
+            //cmd_updateCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
             cmd_updateCategory.Parameters.AddWithValue("@categoryId", id);
             int result = 0;
             con.Open();
