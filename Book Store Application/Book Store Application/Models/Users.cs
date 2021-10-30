@@ -26,6 +26,7 @@ namespace Book_Store_Application.Models
         SqlCommand cmd_getAllUsers = new SqlCommand("select * from Users");
         SqlCommand cmd_getUserbyId = new SqlCommand("select * from Users where userId=@userId");
         SqlCommand cmd_getUserbyName = new SqlCommand("select * from Users where userName=@userName");
+        SqlCommand cmd_getLogin = new SqlCommand("select * from Users where userName=@userName and password=@password");
         SqlCommand cmd_addUser = new SqlCommand("insert into Users(userName, [password], firstName, lastName,  userEmail,  userMobile,  userAddress) values(@userName,@password,@firstName,@lastName,@userEmail,@userMobile,@userAddress)"); 
         SqlCommand cmd_updateUser = new SqlCommand("update Users set userName=@userName,password=@password,firstName=@firstName,lastName=@lastName,userEmail=@userEmail,userMobile=@userMobile,userAddress=@userAddress,isActive=@isActive where userId=@userId");
         SqlCommand cmd_deleteUser = new SqlCommand("delete from Users where userId=@userId");
@@ -89,6 +90,7 @@ namespace Book_Store_Application.Models
                     lastName = _readUser[4].ToString(),
                     userEmail = _readUser[5].ToString(),
                     userMobile = Convert.ToDouble(_readUser[6]),
+                    isAdmin = Convert.ToBoolean(_readUser[7]),
                     userAddress = _readUser[8].ToString(),
                     isactive = Convert.ToBoolean(_readUser[9])
 
@@ -126,6 +128,7 @@ namespace Book_Store_Application.Models
                     lastName = _readUser[4].ToString(),
                     userEmail = _readUser[5].ToString(),
                     userMobile = Convert.ToDouble(_readUser[6]),
+                    isAdmin = Convert.ToBoolean(_readUser[7]),
                     userAddress = _readUser[8].ToString(),
                     isactive = Convert.ToBoolean(_readUser[9])
 
@@ -143,6 +146,45 @@ namespace Book_Store_Application.Models
                 throw new Exception("Record username = " + p_userName + " not found in Users table");
             }
             return userlistbyname;
+        }
+        public Users GetLoginDetails(string p_userName, string p_pwd)
+        {
+            List<Users> loggedUser = new List<Users>();
+            cmd_getLogin.Connection = con;
+            cmd_getLogin.Parameters.AddWithValue("@userName", p_userName);
+            cmd_getLogin.Parameters.AddWithValue("@password", p_pwd);
+            SqlDataReader _readUser;
+            con.Open();
+            _readUser = cmd_getLogin.ExecuteReader();
+
+            while (_readUser.Read())
+            {
+                loggedUser.Add(new Users()
+                {
+                    userID = Convert.ToInt32(_readUser[0]),
+                    userName = _readUser[1].ToString(),
+                    userPassword = _readUser[2].ToString(),
+                    firstName = _readUser[3].ToString(),
+                    lastName = _readUser[4].ToString(),
+                    userEmail = _readUser[5].ToString(),
+                    userMobile = Convert.ToDouble(_readUser[6]),
+                    isAdmin = Convert.ToBoolean(_readUser[7]),
+                    userAddress = _readUser[8].ToString(),
+                    isactive = Convert.ToBoolean(_readUser[9])
+
+
+                });
+
+
+            }
+            _readUser.Close();
+            con.Close();
+            if (loggedUser.Count == 0)
+            {
+                throw new Exception("Record username = " + p_userName + " not found in Users table");
+            }
+
+            return loggedUser[0];
         }
 
         public int addUser(Users newuser)
