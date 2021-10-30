@@ -22,7 +22,7 @@ namespace Book_Store_Project.Models
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
         SqlCommand cmd_getAllData = new SqlCommand("select * from Category order by categoryPosition");
-        SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, @categoryStatus, @categoryPosition,getdate())");
+        SqlCommand cmd_addCategory = new SqlCommand("insert into Category values(@categoryName, @categoryDesc, @categoryImg, 1, @categoryPosition,getdate())");
         SqlCommand cmd_updateCategory = new SqlCommand("update Category set categoryName = @categoryName, categoryDesc = @categoryDesc, categoryImg = @categoryImg, categoryStatus = @categoryStatus, categoryPosition=@categoryPosition where categoryId = @categoryId");
         SqlCommand cmd_updateCategorypos = new SqlCommand("update Category set   categoryPosition=@categoryPosition where categoryId = @categoryId");
         SqlCommand cmd_deleteCategory = new SqlCommand("delete from Category where categoryId = @categoryId");
@@ -64,7 +64,7 @@ namespace Book_Store_Project.Models
             cmd_addCategory.Parameters.AddWithValue("@categoryName", catObj.categoryName);
             cmd_addCategory.Parameters.AddWithValue("@categoryDesc", catObj.categoryDesc);
             cmd_addCategory.Parameters.AddWithValue("@categoryImg", catObj.categoryImg);
-            cmd_addCategory.Parameters.AddWithValue("@categoryStatus", catObj.categoryStatus);
+            //cmd_addCategory.Parameters.AddWithValue("@categoryStatus", catObj.categoryStatus);
             cmd_addCategory.Parameters.AddWithValue("@categoryPosition", catObj.categoryPosition);
             //cmd_addCategory.Parameters.AddWithValue("@categoryCreatedAt", catObj.categoryCreatedAt);
             int result = 0;
