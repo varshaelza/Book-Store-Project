@@ -28,9 +28,9 @@ namespace Book_Store_Application.Models
         SqlCommand cmd_getAllBooks = new SqlCommand("select * from Books order by bookPosition");
         SqlCommand cmd_getBookByCategory = new SqlCommand("select * from Books where categoryId=@catid order by bookPosition");
         SqlCommand cmd_getBookById = new SqlCommand("select * from Books where bookId=@bookId order by bookPosition");
-        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title LIKE @p_value or author LIKE @p_value order by bookPosition");
-        SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,@bookstatus,@bookimage,@author,@availableQty)");
-        SqlCommand cmd_updateBook = new SqlCommand("update Books set bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
+        SqlCommand cmd_getBookByTitleAuthor = new SqlCommand("select * from Books where title LIKE @p_value or author LIKE @p_value");
+        SqlCommand cmd_addBook = new SqlCommand("insert into Books values(@catid,@title,@isbn,@year,@bookprice,@bookdesc,@bookpos,1,@bookimage,@author,@availableQty)");
+        SqlCommand cmd_updateBook = new SqlCommand("update Books set title=@title, categoryId=@categoryId ,bookPrice=@bookprice,bookPosition=@bookPos,bookStatus=@bookstatus,bookDescription=@bookdesc,Author=@author,availableQty=@availableQty,bookImage=@bookimage where bookID=@bookId");
         SqlCommand cmd_updateBookpos = new SqlCommand("update Books set bookPosition=@bookPos where bookID=@bookId");
         SqlCommand cmd_deleteBook = new SqlCommand("delete from Books where bookId=@bookid");
 
@@ -196,7 +196,7 @@ namespace Book_Store_Application.Models
             cmd_addBook.Parameters.AddWithValue("@bookprice", newbook.bookPrice);
             cmd_addBook.Parameters.AddWithValue("@bookdesc", newbook.bookDescription);
             cmd_addBook.Parameters.AddWithValue("@bookpos", newbook.bookPosition);
-            cmd_addBook.Parameters.AddWithValue("@bookstatus", newbook.bookStatus);
+            //cmd_addBook.Parameters.AddWithValue("@bookstatus", newbook.bookStatus);
             cmd_addBook.Parameters.AddWithValue("@bookimage", newbook.bookImage);
             cmd_addBook.Parameters.AddWithValue("@author", newbook.author);
             cmd_addBook.Parameters.AddWithValue("@availableQty", newbook.availableQty);
@@ -210,7 +210,7 @@ namespace Book_Store_Application.Models
             catch (Exception ex)
             {
                 con.Close();
-                throw new Exception("Could not add entry into Books table");
+                throw new Exception(ex.Message);
             }
             con.Close();
             if (result == 0)
@@ -232,6 +232,8 @@ namespace Book_Store_Application.Models
             cmd_updateBook.Parameters.AddWithValue("@author", newbk.author);
             cmd_updateBook.Parameters.AddWithValue("@availableQty", newbk.availableQty);
             cmd_updateBook.Parameters.AddWithValue("@bookID", newbk.bookId);
+            cmd_updateBook.Parameters.AddWithValue("@title", newbk.title);
+            cmd_updateBook.Parameters.AddWithValue("@categoryId", newbk.categoryId);
             int result = 0;
 
             con.Open();
