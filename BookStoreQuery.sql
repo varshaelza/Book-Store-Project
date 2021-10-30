@@ -123,6 +123,8 @@
 
 ------------------------------------------------ALTER TABLES--------------------------------------------------------
 
+--alter table Category add Constraint check_catpos check(categoryPosition>0)
+--alter table Books add Constraint check_bookpos check(bookPosition>0)
 --alter table Users add constraint UK_username unique(userName)
 --alter table Books alter column bookDescription varchar(500)
 --alter table Category alter column categoryDesc varchar(500)
