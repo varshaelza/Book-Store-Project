@@ -32,7 +32,7 @@ namespace Book_Store_Application.Controllers
 
             return userlist;
         }
-        public List<Users> GetUserById(int p_userId)
+        public Users GetUserById(int p_userId)
         {
             Users userobj = new Users();
             List<Users> userlist = new List<Users>();            
@@ -51,7 +51,7 @@ namespace Book_Store_Application.Controllers
 
             }
 
-            return userlist;
+            return userlist[0];
         }
 
         public List<Users> GetUserByName(string p_userName)
@@ -74,6 +74,28 @@ namespace Book_Store_Application.Controllers
             }
 
             return userlist;
+        }
+        
+        public Users GetLoggedInUser(string p_userName, string p_pwd)
+        {
+            Users userobj = new Users();
+            List<Users> userlist = new List<Users>();
+            Users res = new Users();
+            try
+            {
+                res = userobj.GetLoginDetails(p_userName, p_pwd);
+            }
+            catch (Exception ex)
+            {
+                FileStream myfile = new FileStream(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "errorlog.txt"), FileMode.Append, FileAccess.Write);
+                StreamWriter sr = new StreamWriter(myfile);
+                sr.WriteLine(ex.Message);
+                sr.Close();
+                myfile.Close();
+
+            }
+
+            return res;
         }
 
         [HttpPost]
