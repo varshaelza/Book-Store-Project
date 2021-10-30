@@ -394,6 +394,19 @@
 --	declare @addid int=(select categoryId from inserted)
 --	update Category set categoryPosition=categoryPosition+1 where categoryPosition>=@addpos and categoryId!=@addId
 --end
+
+--create trigger cartupdate
+--on 
+--Cart
+--after update
+--as begin
+--	declare @qty int =(select bookQty from inserted)
+--	declare @id int =(select cartId from inserted)
+--	if(@qty=0)
+--	begin
+--	delete from Cart where cartId=@id
+--	end
+--e
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
 --insert into Orders values(4,1,0,getdate());
