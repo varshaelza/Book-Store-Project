@@ -406,7 +406,7 @@
 --	begin
 --	delete from Cart where cartId=@id
 --	end
---e
+--end
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
 --insert into Orders values(4,1,0,getdate());
