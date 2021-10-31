@@ -407,6 +407,26 @@
 --	delete from Cart where cartId=@id
 --	end
 --end
+
+--alter table Cart drop constraint UK_bookUser
+--alter table WishList add constraint UK_bookUser unique(bookId,userId)
+
+--alter trigger cartadd
+--on Cart
+--after insert
+--as begin
+--	declare @qty int =(select bookQty from inserted)
+--	declare @userid int =(select userId from inserted)
+--	declare @bookid int =(select bookId from inserted)
+--	declare @cartid int =(select cartId from inserted)
+--	if((select count(*) from Cart where bookId=@bookid and userId=@userid)>0)
+--	begin
+--		delete from Cart where cartId=@cartid
+--		update Cart set bookQty=bookQty+@qty where bookId=@bookid and userId=@userid
+		
+--	end
+--end
+
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
 --insert into Orders values(4,1,0,getdate());
