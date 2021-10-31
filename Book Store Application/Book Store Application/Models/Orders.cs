@@ -19,10 +19,10 @@ namespace Book_Store_Project.Models
 
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
 
-        SqlCommand cmd_getAllOrders = new SqlCommand("select * from Orders");
+        SqlCommand cmd_getAllOrders = new SqlCommand("select * from Orders order by dateTimeOrder desc");
         SqlCommand cmd_getAllOrdersByOrderId = new SqlCommand("select * from Orders where orderId=@orderId");
-        SqlCommand cmd_getAllOrdersByUserId = new SqlCommand("select * from Orders where userId=@userId");
-        SqlCommand cmd_addOrder = new SqlCommand("insert into Orders values(@userId, @couponId, @totalAmt, @dateTimeOrder)");
+        SqlCommand cmd_getAllOrdersByUserId = new SqlCommand("select * from Orders where userId=@userId order by dateTimeOrder desc");
+        SqlCommand cmd_addOrder = new SqlCommand("insert into Orders values(@userId, @couponId, 0, getdate())");
 
 
         #region Methods
@@ -119,8 +119,8 @@ namespace Book_Store_Project.Models
             cmd_addOrder.Connection = con;
             cmd_addOrder.Parameters.AddWithValue("@userId", orderObj.userId);
             cmd_addOrder.Parameters.AddWithValue("@couponId", orderObj.couponId);
-            cmd_addOrder.Parameters.AddWithValue("@totalAmt", orderObj.totalAmt);
-            cmd_addOrder.Parameters.AddWithValue("@dateTimeOrder", orderObj.dateTimeOrder);
+            //cmd_addOrder.Parameters.AddWithValue("@totalAmt", orderObj.totalAmt);
+            //cmd_addOrder.Parameters.AddWithValue("@dateTimeOrder", orderObj.dateTimeOrder);
             int result = 0;
             con.Open();
             try
@@ -132,7 +132,7 @@ namespace Book_Store_Project.Models
                 con.Close();
                 throw new Exception("Could not add entry into Orders table");
             }
-            
+
             con.Close();
             if (result == 0)
             {
