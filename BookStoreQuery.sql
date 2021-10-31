@@ -427,6 +427,44 @@
 --	end
 --end
 
+
+alter trigger trg_orderplaced
+on
+Purchases
+after
+insert,update,delete
+as
+begin
+	declare @orderId int;
+	declare @discount float;
+	declare @bookId int;
+	declare @userId int;
+	declare @qty int;
+	
+	if(exists (select * from deleted))
+	begin
+	set @orderId =(select orderId from deleted);
+	set @discount =(select Discount.disPercent from Orders join Discount on Orders.couponId=Discount.couponId where Orders.orderId=@orderId);
+	set @qty=(select qty from inserted);
+	set @bookId=(select bookId from inserted);
+	update books set availableQty=(availableQty+@qty) where bookId=@bookId;
+	end
+
+	if(exists (select * from inserted))
+	begin
+
+	set @orderId=(select orderId from inserted);
+	set @bookId=(select bookId from inserted);
+	set @qty=(select qty from inserted);
+	set @userId=(select top 1 Orders.userId from Purchases join Orders on Purchases.orderId=Orders.orderId where Orders.orderId=@orderId );
+	set @discount =(select Discount.disPercent from Orders join Discount on Orders.couponId=Discount.couponId where Orders.orderId=@orderId);
+	update books set availableQty=(availableQty-@qty) where bookId=@bookId;
+	delete from Cart where bookId=@bookId and userId=@userId
+	end
+
+	update Orders set totalAmt=(select dbo.func_calctotal(@orderId,@discount)) where orderId=@orderId
+end
+
 --------------------------------------------------TESTING-------------------------------------------------------
 --insert into Cart values(4,9,1)
 --insert into Orders values(4,1,0,getdate());
