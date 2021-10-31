@@ -419,7 +419,7 @@
 --	declare @userid int =(select userId from inserted)
 --	declare @bookid int =(select bookId from inserted)
 --	declare @cartid int =(select cartId from inserted)
---	if((select count(*) from Cart where bookId=@bookid and userId=@userid)>0)
+--	if((select count(*) from Cart where bookId=@bookid and userId=@userid)>1)
 --	begin
 --		delete from Cart where cartId=@cartid
 --		update Cart set bookQty=bookQty+@qty where bookId=@bookid and userId=@userid
