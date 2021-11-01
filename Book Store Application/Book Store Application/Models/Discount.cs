@@ -16,7 +16,7 @@ namespace Book_Store_Application.Models
         public double disPercent { get; set; }
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connectBookStoreDB"].ConnectionString);
         SqlCommand cmd_getalldata = new SqlCommand("select * from Discount where couponCode!='BS000'");
-        SqlCommand cmd_getbyminpurchase = new SqlCommand("select * from Discount where minPurchase< @p_totPurchase");
+        SqlCommand cmd_getbyminpurchase = new SqlCommand("select * from Discount where minPurchase< @p_totPurchase and couponCode!='BS000'");
         SqlCommand cmd_getbycouponcode = new SqlCommand("select * from Discount where couponCode=@p_couponCode");
         SqlCommand cmd_insertdata = new SqlCommand("insert into Discount values(@p_couponCode,@p_minPurchase,@p_disPercent)");
         SqlCommand cmd_updatedata = new SqlCommand("update Discount set couponCode=@p_couponCode,minPurchase=@p_minPurchase,disPercent=@p_disPercent where couponId=@p_couponId");
@@ -112,7 +112,7 @@ namespace Book_Store_Application.Models
                 throw new Exception("Could not add entry into Discount table");
             }
             con.Close();
-            if(result==0)
+            if (result==0)
             {
                 throw new Exception("Could not add entry into Discount table" );
             }
@@ -149,7 +149,7 @@ namespace Book_Store_Application.Models
 
 
         }
-         public int DeleteDiscount(int p_couponId)
+        public int DeleteDiscount(int p_couponId)
         {
             cmd_deletedata.Connection = con;
             cmd_deletedata.Parameters.AddWithValue("@p_couponId", p_couponId);
